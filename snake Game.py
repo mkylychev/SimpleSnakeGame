@@ -37,6 +37,7 @@ foodSpawn = True
 
 diraction = 'RIGHT'
 changeto = diraction
+score = 0
 
 
 # Game over function
@@ -47,9 +48,22 @@ def gameOver():
     GOrect.midtop = (360, 15)
     play_surface.blit(GOsurf, GOrect)
     pygame.display.flip()
+    showScore(0)
     time.sleep(4)
     pygame.quit()
     sys.exit()
+
+
+def showScore(choice=1):
+    sFont = pygame.font.SysFont('monaco', 24)
+    Ssurf = sFont.render('Score: ' + str(score), True, black)
+    Srect = Ssurf.get_rect()
+    if choice == 1:
+        Srect.midtop = (80, 10)
+    else:
+        Srect.midtop = (360, 120)
+    play_surface.blit(Ssurf, Srect)
+    pygame.display.flip()
 
 
 # gameOver()
@@ -92,6 +106,7 @@ while True:
 
     snakeBody.insert(0, list(snakePos))
     if snakePos[0] == foodPos[0] and snakePos[1] == foodPos[1]:
+        score +=1
         foodSpawn = False
     else:
         snakeBody.pop()
@@ -113,6 +128,6 @@ while True:
     for block in snakeBody[1:]:
         if snakePos[0] == block[0] and snakePos[0] == block[1]:
             gameOver()
-
     pygame.display.flip()
+    showScore()
     fpsConroller.tick(10)
