@@ -15,7 +15,7 @@ else:
 # Play surface
 play_surface = pygame.display.set_mode((720, 460))
 pygame.display.set_caption('Snake game')
-time.sleep(5)
+time.sleep(2)
 
 # Colors
 
@@ -30,11 +30,24 @@ brown = pygame.Color(165, 25, 25)
 fpsConroller = pygame.time.Clock()
 
 snakePos = [100, 50]
-snakeBody = [[100,50],[90,50],[80,50]]
+snakeBody = [[100, 50], [90, 50], [80, 50]]
 
-
-foodPos = [random.randrange(1, 72)*10, random.randrange(1, 46)*10]
+foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10]
 foodSpawn = True
 
 diraction = 'RIGHT'
 changeto = diraction
+
+
+# Game over function
+
+def gameOver():
+    myFont = pygame.font.SysFont('monaco', 72)
+    GOsurf = myFont.render('Game over!', True, red)
+    GOrect = GOsurf.get_rect()
+    GOrect.midtop = (360, 15)
+    play_surface.blit(GOsurf, GOrect)
+    pygame.display.flip()
+
+gameOver()
+time.sleep(10)
