@@ -40,7 +40,6 @@ changeto = diraction
 
 
 # Game over function
-
 def gameOver():
     myFont = pygame.font.SysFont('monaco', 72)
     GOsurf = myFont.render('Game over!', True, red)
@@ -48,6 +47,47 @@ def gameOver():
     GOrect.midtop = (360, 15)
     play_surface.blit(GOsurf, GOrect)
     pygame.display.flip()
+    time.sleep(4)
+    pygame.quit()
+    sys.exit()
+
 
 gameOver()
 time.sleep(10)
+# Main logic
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                changeto = 'RIGHT'
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                changeto = 'LEFT'
+            if event.key == pygame.K_UP or event.key == ord('w'):
+                changeto = 'UP'
+            if event.key == pygame.K_DOWN or event.key == ord('s'):
+                changeto = 'DOWN'
+            if event.key == pygame.K_ESCAPE:
+                pygame.event.post(pygame.event.Event(QUIT))
+
+    if changeto == 'RIGHT' and not diraction == 'LEFT':
+        diraction = 'RIGHT'
+    if changeto == 'LEFT' and not diraction == 'RIGHT':
+        diraction = 'RIGHT'
+    if changeto == 'UP' and not diraction == 'DOWN':
+        diraction = 'UP'
+    if changeto == 'DOWN' and not diraction == 'UP':
+        diraction = 'DOWN'
+
+    if diraction == 'RIGHT':
+        snakePos[0] += 10
+    if diraction == 'LEFTT':
+        snakePos[0] -= 10
+    if diraction == 'UP':
+        snakePos[1] -= 10
+    if diraction == 'DOWN':
+        snakePos[1] += 10
+
+
