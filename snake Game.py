@@ -52,8 +52,8 @@ def gameOver():
     sys.exit()
 
 
-gameOver()
-time.sleep(10)
+# gameOver()
+# time.sleep(10)
 # Main logic
 while True:
     for event in pygame.event.get():
@@ -90,4 +90,17 @@ while True:
     if diraction == 'DOWN':
         snakePos[1] += 10
 
+    snakeBody.insert(0, list(snakePos))
+    if snakePos[0] == foodPos[0] and snakePos[1] == foodPos[1]:
+        foodSpawn = False
+    else:
+        snakeBody.pop()
+    if foodSpawn == False:
+        foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10]
+    foodSpawn = True
 
+    play_surface.fill(white)
+    for pos in snakeBody:
+        pygame.draw.rect(play_surface, green, pygame.Rect(pos[0], pos[1], 10, 10))
+    pygame.display.flip()
+    fpsConroller.tick(25)
