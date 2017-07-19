@@ -75,7 +75,7 @@ while True:
     if changeto == 'RIGHT' and not diraction == 'LEFT':
         diraction = 'RIGHT'
     if changeto == 'LEFT' and not diraction == 'RIGHT':
-        diraction = 'RIGHT'
+        diraction = 'LEFT'
     if changeto == 'UP' and not diraction == 'DOWN':
         diraction = 'UP'
     if changeto == 'DOWN' and not diraction == 'UP':
@@ -83,7 +83,7 @@ while True:
 
     if diraction == 'RIGHT':
         snakePos[0] += 10
-    if diraction == 'LEFTT':
+    if diraction == 'LEFT':
         snakePos[0] -= 10
     if diraction == 'UP':
         snakePos[1] -= 10
@@ -102,5 +102,17 @@ while True:
     play_surface.fill(white)
     for pos in snakeBody:
         pygame.draw.rect(play_surface, green, pygame.Rect(pos[0], pos[1], 10, 10))
+
+    pygame.draw.rect(play_surface, brown, pygame.Rect(foodPos[0], foodPos[1], 10, 10))
+
+    if snakePos[0] > 710 or snakePos[0] < 0:
+        gameOver()
+    if snakePos[1] > 450 or snakePos[1] < 0:
+        gameOver()
+
+    for block in snakeBody[1:]:
+        if snakePos[0] == block[0] and snakePos[0] == block[1]:
+            gameOver()
+
     pygame.display.flip()
-    fpsConroller.tick(25)
+    fpsConroller.tick(10)
